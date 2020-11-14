@@ -1,0 +1,12 @@
+{
+  "name": "vladlenkaveevbrand",
+  "displayName": "vladlenkaveevbrand",
+  "expo": {
+    "name": "vladlenkaveevbrand",
+    "slug": "vladlenkaveevbrand",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
