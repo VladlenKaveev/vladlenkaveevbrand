@@ -84,12 +84,10 @@ export default class ProfileScreen extends Component {
     return (
       <Container style={styles.container}>
         <Content>
+          <Text style={styles.text}>Профиль</Text>
           <Card>
-            <CardItem style={{ justifyContent: "center" }}>
-              <Text style={styles.text}>Profile</Text>
-            </CardItem>
             <CardItem>
-              <Text style={{ fontSize: 18 }}>Добро пожаловать, </Text>
+              <Text style={{ fontSize: 18 }}>Добро пожаловать,</Text>
             </CardItem>
             <CardItem>
               <Button style={styles.button}>
@@ -107,6 +105,11 @@ export default class ProfileScreen extends Component {
               </Button>
             </CardItem>
             <CardItem>
+              <Button style={styles.button}>
+                <Label style={styles.label}>Обратная связь</Label>
+              </Button>
+            </CardItem>
+            <CardItem>
               <Button
                 onPress={() => {
                   this.signOut();
@@ -114,7 +117,7 @@ export default class ProfileScreen extends Component {
                 }}
                 style={styles.button}
               >
-                <Label style={styles.label}>ВЫЙТИ</Label>
+                <Label style={styles.label}>Выход</Label>
               </Button>
             </CardItem>
           </Card>

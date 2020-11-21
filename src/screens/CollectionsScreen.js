@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, FlatList, Dimensions, Image } from "react-native";
-import {
-  Container,
-  Content,
-  Card,
-  CardItem,
-  Text,
-  Button,
-} from "native-base";
+import { Container, Content, Card, CardItem, Text, Button } from "native-base";
 
 import firebase from "../components/firebase/firebase";
 
@@ -88,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingTop: height / 30,
+    paddingTop: height / 20,
   },
   text: {
     flex: 1,

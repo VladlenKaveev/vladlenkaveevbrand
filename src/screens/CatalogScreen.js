@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { StyleSheet, FlatList, Image, Dimensions } from "react-native";
-import { Container, Content, Card, CardItem, Text } from "native-base";
+import {
+  Container,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Button,
+  Label,
+} from "native-base";
 
 import firebase from "../components/firebase/firebase";
 
@@ -48,6 +56,13 @@ export default class CatalogScreen extends Component {
         <Card>
           <CardItem>
             <Text style={styles.name}>{item.name}</Text>
+            <Icon
+              name="heart"
+              size={27}
+              onPress={() => {
+                navigation.navigate("Wishlist");
+              }}
+            />
           </CardItem>
           <CardItem>
             <Image
@@ -64,15 +79,11 @@ export default class CatalogScreen extends Component {
           </CardItem>
           <CardItem>
             <Text style={styles.price}>{item.price}</Text>
-            <Icon
-              name="heart"
-              size={27}
-              color="red"
-              style={styles.icon}
-              onPress={() => {
-                navigation.navigate("Wishlist");
-              }}
-            />
+          </CardItem>
+          <CardItem>
+            <Button style={styles.button}>
+              <Label style={styles.label}>КУПИТЬ</Label>
+            </Button>
           </CardItem>
         </Card>
       </Content>
@@ -133,9 +144,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   price: {
-    fontSize: 18,
+    flex: 1,
+    fontSize: 20,
+    textAlign: "center",
   },
-  icon: {
-    paddingLeft: width / 1.5,
+  button: {
+    flex: 1,
+    justifyContent: "center",
+    textAlign: "center",
+    backgroundColor: "black",
+  },
+  label: {
+    color: "white",
   },
 });

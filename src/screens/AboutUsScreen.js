@@ -16,14 +16,14 @@ import {
 } from "native-base";
 
 import Icon from "react-native-vector-icons/FontAwesome";
-import YouTube from "react-native-youtube";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import WebView from "react-native-webview";
 
 export default class AboutUsScreen extends Component {
   constructor() {
     super();
     this.state = {
       phone: "+7 953-998-58-68",
+      idVideo: "TOGYS16TezQ",
     };
   }
 
@@ -34,30 +34,36 @@ export default class AboutUsScreen extends Component {
           <Text style={styles.text}>Наши контакты</Text>
           <Card>
             <CardItem>
-              <Text>КАРТА</Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontStyle: "italic",
+                  padding: 10,
+                  textAlign: "center",
+                }}
+              >
+                Добро пожаловать на сайт бренда дизайнерской одежды Vladlen
+                Kaveev! Здесь ты можешь приобрести модели нашей одежды
+                сдоставкой по всему миру или узнать информацию о выходе
+                новойколлекции. Будем рады видеть тебя на нашем показе! Бренд
+                существует не так давно, но мы не перестаем постигать новые
+                стили одежды и радовать вас качественной вышивкой и материалами!
+              </Text>
             </CardItem>
             <CardItem>
-              <Text style={{ fontSize: 13, fontStyle: "italic" }}>
-                kvartaldesignwork@gmail.com
-              </Text>
+              <WebView
+                style={styles.video}
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                source={{
+                  uri: "https://www.youtube.com/embed/" + this.state.idVideo,
+                }}
+              />
             </CardItem>
             <CardItem>
               <Icon name="vk" size={27} style={styles.icon} />
               <Icon name="youtube" size={27} style={styles.icon} />
               <Icon name="instagram" size={27} style={styles.icon} />
-            </CardItem>
-            <CardItem>
-              <YouTube
-                videoId="TOGYS16TezQ" // The YouTube video ID
-                play // control playback of video with true/false
-                fullscreen // control whether the video should play in fullscreen or inline
-                loop // control whether the video should loop when ended
-                onReady={(e) => this.setState({ isReady: true })}
-                onChangeState={(e) => this.setState({ status: e.state })}
-                onChangeQuality={(e) => this.setState({ quality: e.quality })}
-                onError={(e) => this.setState({ error: e.error })}
-                style={{ alignSelf: "stretch", height: 300 }}
-              />
             </CardItem>
           </Card>
         </Content>
@@ -87,5 +93,10 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "white",
+  },
+  video: {
+    marginTop: 20,
+    width: 400,
+    height: 230,
   },
 });

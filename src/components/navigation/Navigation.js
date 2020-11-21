@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,14 +13,13 @@ import CreateUserScreen from "../../screens/CreateUserScreen";
 import AboutUsScreen from "../../screens/AboutUsScreen";
 import ArticlesDetails from "../ArticlesDetails";
 import SplashScreen from "../../screens/SplashScreen";
+import GalleryScreen from "../../screens/GalleryScreen";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
-const { height } = Dimensions.get("window");
-const { width } = Dimensions.get("window");
 
 function TabScreen() {
   return (
@@ -40,6 +39,15 @@ function TabScreen() {
         options={{
           tabBarIcon: () => (
             <Icon name="list-alt" size={23} color="black" style={styles.icon} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Галерея"
+        component={GalleryScreen}
+        options={{
+          tabBarIcon: () => (
+            <Icon name="photo" size={23} color="black" style={styles.icon} />
           ),
         }}
       />
