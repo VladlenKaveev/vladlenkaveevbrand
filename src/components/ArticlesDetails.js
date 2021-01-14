@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, FlatList, Dimensions, Image } from "react-native";
-import { Container, Content, Card, CardItem, Text, Button } from "native-base";
-import { SliderBox } from "react-native-image-slider-box";
+import { StyleSheet, Text, Dimensions } from "react-native";
+import { Container, Content, Card, CardItem, Button } from "native-base";
+import { CachedImage } from "react-native-img-cache";
+import CardSilder from "react-native-cards-slider";
+
+const { height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 export default class ArticlesDetails extends Component {
   constructor(props) {
@@ -11,19 +15,30 @@ export default class ArticlesDetails extends Component {
   checkSlider = () => {
     const { route } = this.props;
     const { imgSlider, imgSlider2, imgSlider3, imgSlider4 } = route.params;
-    var images = [imgSlider, imgSlider2, imgSlider3, imgSlider4];
+    // var images = [imgSlider, imgSlider2, imgSlider3, imgSlider4];
     if (imgSlider != null) {
       return (
-        <SliderBox
-          images={images}
-          sliderBoxHeight={550}
-          width={350}
-          dotColor="black"
-          inactiveDotColor="#90A4AE"
-          paginationBoxVerticalPadding={20}
-          autoplay
-          circleLoop
-        />
+        // <SliderBox
+        //   images={images}
+        //   sliderBoxHeight={550}
+        //   width={350}
+        //   dotColor="black"
+        //   inactiveDotColor="#90A4AE"
+        //   paginationBoxVerticalPadding={20}
+        //   autoplay
+        //   circleLoop
+        //   imageLoadingColor="black"
+        //   dotColor="white"
+        //   ImageComponentStyle={{ borderRadius: 15, width: "97%", marginTop: 5 }}
+        // />
+        <Content>
+          <CardSilder style={styles.imageContainer}>
+            <CachedImage style={{ height: 700 }} source={{ url: imgSlider }} />
+            <CachedImage style={{ height: 500 }} source={{ url: imgSlider2 }} />
+            <CachedImage style={{ height: 500 }} source={{ url: imgSlider3 }} />
+            <CachedImage style={{ height: 500 }} source={{ url: imgSlider4 }} />
+          </CardSilder>
+        </Content>
       );
     }
   };
@@ -41,19 +56,26 @@ export default class ArticlesDetails extends Component {
               </Text>
             </CardItem>
             <CardItem>
-              <Image source={{ uri: imgUrl }} style={styles.imageContainer} />
+              <CachedImage
+                source={{ uri: imgUrl }}
+                style={styles.logoContainer}
+              />
             </CardItem>
             <CardItem>
-              <Text>{article}</Text>
+              <Text style={{ fontFamily: "mr_ApexMk3-ExtraLight" }}>
+                {article}
+              </Text>
             </CardItem>
             <CardItem style={{ flex: 1, justifyContent: "center" }}>
               {this.checkSlider()}
             </CardItem>
             <CardItem>
-              <Text>{article2}</Text>
+              <Text style={{ fontFamily: "mr_ApexMk3-ExtraLight" }}>
+                {article2}
+              </Text>
             </CardItem>
             <CardItem>
-              <Image
+              <CachedImage
                 source={{ uri: imgUrl2 }}
                 style={{ width: 350, height: 300 }}
               />
@@ -66,8 +88,14 @@ export default class ArticlesDetails extends Component {
 }
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    flex: 1,
+    width: width / 1.5,
+    height: width / 1.5,
+  },
   imageContainer: {
-    width: 300,
-    height: 300,
+    flex: 1,
+    width: width / 1,
+    height: height / 2,
   },
 });

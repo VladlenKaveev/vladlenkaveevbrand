@@ -7,12 +7,6 @@ import {
   Card,
   CardItem,
   Text,
-  Button,
-  Label,
-  Header,
-  Form,
-  Item,
-  Input,
 } from "native-base";
 
 import Icon from "react-native-vector-icons/FontAwesome";

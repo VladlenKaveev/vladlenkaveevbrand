@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Dimensions, FlatList, Image } from "react-native";
+import { StyleSheet, Dimensions, FlatList } from "react-native";
 import {
   Container,
   Header,
@@ -14,6 +14,8 @@ import {
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "../components/firebase/firebase";
+import { CachedImage } from "react-native-img-cache";
+import SplashScreen from "../screens/SplashScreen";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -23,8 +25,10 @@ export default class HomeScreen extends Component {
     super(props);
     this.state = {
       articles: "",
+      loading: true,
     };
   }
+
   componentDidMount() {
     firebase
       .database()
@@ -54,20 +58,26 @@ export default class HomeScreen extends Component {
     const { navigation } = this.props;
     return (
       <Content padder>
-        <Card>
+        <Card style={styles.card}>
           <CardItem>
-            <Text style={{ flex: 1, fontSize: 18, textAlign: "center" }}>
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 18,
+                textAlign: "center",
+              }}
+            >
               {item.name}
             </Text>
           </CardItem>
-          <CardItem>
-            <Image
+          <CardItem style={styles.container}>
+            <CachedImage
               source={{ uri: item.imgUrl }}
               style={styles.imageContainer}
             />
           </CardItem>
           <CardItem>
-            <Text style={{ fontSize: 14 }}>{item.about}</Text>
+            <Text style={styles.text1}>{item.about}</Text>
           </CardItem>
           <CardItem>
             <Button
@@ -98,36 +108,41 @@ export default class HomeScreen extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Container>
-        <Header style={styles.header}>
-          <Text style={{ color: "black", fontSize: 20 }}>
-            VLADLEN KAVEEV BRAND
-          </Text>
-          <Icon
-            name="heart-o"
-            size={27}
-            style={styles.icon}
-            onPress={() => {
-              navigation.navigate("Wishlist");
-            }}
-          />
-        </Header>
-        <Content>
-          <FlatList
-            style={{ width: "100%" }}
-            data={this.state.articles}
-            keyExtractor={(item) => item.key}
-            renderItem={this.renderItem}
-          />
-        </Content>
-      </Container>
+        <Container>
+          <Header style={styles.header}>
+            <Text style={{ color: "black", fontSize: 20 }}>
+              VLADLEN KAVEEV BRAND
+            </Text>
+            <Icon
+              name="heart-o"
+              size={27}
+              style={styles.icon}
+              onPress={() => {
+                navigation.navigate("Wishlist");
+              }}
+            />
+          </Header>
+          <Content>
+            <FlatList
+              style={{ width: "100%" }}
+              data={this.state.articles}
+              keyExtractor={(item) => item.key}
+              renderItem={this.renderItem}
+              onEndReached={() => {
+                this.setState({ loading: false });
+              }}
+            />
+            {this.state.loading && <SplashScreen />}
+          </Content>
+        </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     backgroundColor: "white",
@@ -141,13 +156,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 10,
   },
+  text1: {
+    fontStyle: "italic",
+    fontSize: 14,
+  },
   imageContainer: {
-    width: 300,
-    height: 300,
+    width: 350,
+    height: 350,
+    borderRadius: 10,
+    overflow: "hidden",
   },
   button: {
     flex: 1,
     backgroundColor: "black",
     justifyContent: "center",
+  },
+  card: {
+    borderColor: "black",
   },
 });

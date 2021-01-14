@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import LottieView from "lottie-react-native";
+
+const { width } = Dimensions.get("window");
 
 export default class SplashScreen extends Component {
   render() {
@@ -8,14 +10,14 @@ export default class SplashScreen extends Component {
       <View style={styles.animationContainer}>
         <LottieView
           style={{
-            width: 300,
-            height: 300,
+            width: 250,
+            height: 250,
+            paddingTop: width / 3,
           }}
-          source={require("../../assets/3138-washing-machine.json")}
+          source={require("../../assets/28537-paint-globe")}
           autoPlay
           loop
         />
-        <Text>Loading</Text>
       </View>
     );
   }
@@ -25,6 +27,5 @@ const styles = StyleSheet.create({
   animationContainer: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
   },
 });

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Alert, StyleSheet } from "react-native";
-
 import {
   Container,
   Text,
@@ -13,7 +12,6 @@ import {
   Card,
   CardItem,
 } from "native-base";
-
 import firebase from "../components/firebase/firebase";
 
 export default class ProfileScreen extends Component {
@@ -55,42 +53,59 @@ export default class ProfileScreen extends Component {
               }}
             />
           </Item>
-          <Item>
-            <Button
-              style={styles.button}
-              onPress={() => {
-                this.signInUser();
-              }}
-            >
-              <Label style={styles.label}>SIGN IN</Label>
-            </Button>
-          </Item>
-          <Item>
-            <Button
-              style={styles.button}
-              onPress={() => {
-                this.props.navigation.navigate("CreateUser");
-              }}
-            >
-              <Label style={styles.label}>CREATE ACCOUNT</Label>
-            </Button>
-          </Item>
         </Form>
+        <Item style={{ padding: 5 }}>
+          <Button
+            bordered
+            dark
+            style={{
+              flex: 1,
+              justifyContent: "center",
+            }}
+            onPress={() => {
+              this.signInUser();
+            }}
+          >
+            <Label style={styles.label}>SIGN IN</Label>
+          </Button>
+        </Item>
+        <Item style={{ padding: 5 }}>
+          <Button
+            bordered
+            dark
+            style={{
+              flex: 1,
+              justifyContent: "center",
+            }}
+            onPress={() => {
+              this.props.navigation.navigate("CreateUser");
+            }}
+          >
+            <Label style={styles.label}>CREATE ACCOUNT</Label>
+          </Button>
+        </Item>
       </Content>
     );
   };
 
   ProfileForm = () => {
+    var user = firebase.auth().currentUser;
     return (
       <Container style={styles.container}>
         <Content>
           <Text style={styles.text}>Профиль</Text>
           <Card>
             <CardItem>
-              <Text style={{ fontSize: 18 }}>Добро пожаловать,</Text>
+              <Text style={{ fontSize: 18 }}>
+                Добро пожаловать, {user.displayName}
+              </Text>
             </CardItem>
             <CardItem>
-              <Button style={styles.button}>
+              <Button
+                bordered
+                dark
+                style={{ flex: 1, justifyContent: "center" }}
+              >
                 <Label style={styles.label}>Мои заказы</Label>
               </Button>
             </CardItem>
@@ -99,13 +114,19 @@ export default class ProfileScreen extends Component {
                 onPress={() => {
                   this.props.navigation.navigate("Wishlist");
                 }}
-                style={styles.button}
+                bordered
+                dark
+                style={{ flex: 1, justifyContent: "center" }}
               >
                 <Label style={styles.label}>Избранное</Label>
               </Button>
             </CardItem>
             <CardItem>
-              <Button style={styles.button}>
+              <Button
+                bordered
+                dark
+                style={{ flex: 1, justifyContent: "center" }}
+              >
                 <Label style={styles.label}>Обратная связь</Label>
               </Button>
             </CardItem>
@@ -115,7 +136,9 @@ export default class ProfileScreen extends Component {
                   this.signOut();
                   this.props.navigation.navigate("Новости");
                 }}
-                style={styles.button}
+                bordered
+                dark
+                style={{ flex: 1, justifyContent: "center" }}
               >
                 <Label style={styles.label}>Выход</Label>
               </Button>
@@ -131,12 +154,12 @@ export default class ProfileScreen extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(function () {
-        Alert.alert("Success login!");
-        this.props.navigation.navigate("Новости");
+        Alert.alert("Вы успешно вошли в аккаунт!");
       })
       .catch(function (error) {
         Alert.alert(error);
       });
+    this.forceUpdate();
   };
 
   signOut = () => {
@@ -157,7 +180,6 @@ export default class ProfileScreen extends Component {
       console.log(user);
       return this.ProfileForm();
     } else {
-      console.log("Вы не вошли в аккаунт!");
       return this.LoginForm();
     }
   };
@@ -184,6 +206,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   label: {
-    color: "white",
+    color: "black",
   },
 });

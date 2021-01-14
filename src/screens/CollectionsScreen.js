@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, FlatList, Dimensions, Image } from "react-native";
+import { StyleSheet, FlatList, Dimensions } from "react-native";
 import { Container, Content, Card, CardItem, Text, Button } from "native-base";
-
 import firebase from "../components/firebase/firebase";
+import { CachedImage } from "react-native-img-cache";
+import SplashScreen from "../screens/SplashScreen";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
@@ -13,6 +14,7 @@ export default class CollectionsScreen extends Component {
     this.state = {
       collection: "",
       numColumns: 2,
+      loading: true,
     };
   }
 
@@ -47,7 +49,7 @@ export default class CollectionsScreen extends Component {
             });
           }}
         >
-          <Image
+          <CachedImage
             key={item.key}
             source={{ uri: item.imgUrl }}
             style={styles.imageContainer}
@@ -65,13 +67,19 @@ export default class CollectionsScreen extends Component {
             <Text styles={styles.text}>ВСЕ ТОВАРЫ</Text>
           </Button>
         </CardItem>
-        <FlatList
-          style={{ width: "100%" }}
-          data={this.state.collection}
-          keyExtractor={(item) => item.key}
-          renderItem={this.renderItem}
-          numColumns={this.state.numColumns}
-        />
+        <Content>
+          <FlatList
+            style={{ width: "100%" }}
+            data={this.state.collection}
+            keyExtractor={(item) => item.key}
+            renderItem={this.renderItem}
+            numColumns={this.state.numColumns}
+            onEndReached={() => {
+              this.setState({ loading: false });
+            }}
+          />
+          {this.state.loading && <SplashScreen />}
+        </Content>
       </Container>
     );
   }

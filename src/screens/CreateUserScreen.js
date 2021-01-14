@@ -63,6 +63,7 @@ export default class CreateUserScreen extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <Container style={styles.container}>
         <Content>
@@ -112,8 +113,9 @@ export default class CreateUserScreen extends Component {
               </Button>
             </Item>
             <Label
+              style={styles.label1}
               onPress={() => {
-                this.props.navigation.navigate("LoginForm");
+                this.props.navigation.goBack(null);
               }}
             >
               Уже зарегестрированы?
@@ -142,5 +144,11 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "white",
+  },
+  label1: {
+    color: "black",
+    fontStyle: "italic",
+    fontSize: 16,
+    paddingLeft: 15,
   },
 });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, FlatList, Image, Dimensions } from "react-native";
+import { StyleSheet, FlatList, Dimensions } from "react-native";
 import {
   Container,
   Content,
@@ -11,9 +11,11 @@ import {
 } from "native-base";
 
 import firebase from "../components/firebase/firebase";
-
+import { CachedImage } from "react-native-img-cache";
 import { HeaderClassicSearchBar } from "react-native-header-search-bar";
 import Icon from "react-native-vector-icons/FontAwesome";
+// import { SliderBox } from "react-native-image-slider-box";
+import CardSilder from "react-native-cards-slider";
 
 const { width } = Dimensions.get("window");
 
@@ -41,7 +43,9 @@ export default class CatalogScreen extends Component {
             name: child.val().name,
             collection: child.val().collection,
             description: child.val().description,
-            imgUrl: child.val().imgUrl,
+            imgSlider: child.val().imgSlider,
+            imgSlider1: child.val().imgSlider1,
+            imgSlider2: child.val().imgSlider2,
             material: child.val().material,
           });
           this.setState({ list: li });
@@ -51,6 +55,10 @@ export default class CatalogScreen extends Component {
 
   renderItem = ({ item }) => {
     const { navigation } = this.props;
+    const imgSlider = item.imgSlider;
+    const imgSlider1 = item.imgSlider1;
+    const imgSlider2 = item.imgSlider2;
+    // var images = [imgSlider, imgSlider1, imgSlider2];
     return (
       <Content padder>
         <Card>
@@ -64,13 +72,39 @@ export default class CatalogScreen extends Component {
               }}
             />
           </CardItem>
-          <CardItem>
-            <Image
-              key={item.key}
-              source={{ uri: item.imgUrl }}
-              style={styles.imageContainer}
-            />
-          </CardItem>
+          {/* <SliderBox
+            images={images}
+            sliderBoxHeight={550}
+            width={350}
+            dotColor="black"
+            inactiveDotColor="#90A4AE"
+            paginationBoxVerticalPadding={20}
+            autoplay
+            circleLoop
+            imageLoadingColor="black"
+            dotColor="white"
+            ImageComponentStyle={{
+              borderRadius: 15,
+              width: "97%",
+              marginTop: 5,
+            }}
+          /> */}
+          <Content>
+            <CardSilder style={styles.imageContainer}>
+              <CachedImage
+                style={{ height: 500 }}
+                source={{ url: imgSlider }}
+              />
+              <CachedImage
+                style={{ height: 500 }}
+                source={{ url: imgSlider1 }}
+              />
+              <CachedImage
+                style={{ height: 500 }}
+                source={{ url: imgSlider2 }}
+              />
+            </CardSilder>
+          </Content>
           <CardItem>
             <Text>{item.description}</Text>
           </CardItem>
