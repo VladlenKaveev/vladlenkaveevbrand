@@ -18,7 +18,7 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "../components/firebase/firebase";
 import { CachedImage } from "react-native-img-cache";
-// import SplashScreen from "../screens/SplashScreen";
+import SplashScreen from "./SplashScreen";
 
 const { height } = Dimensions.get("window");
 // const { width } = Dimensions.get("window");
@@ -108,6 +108,10 @@ export default class HomeScreen extends Component {
     );
   };
 
+  renderFooter = () => {
+    return this.state.loading ? <SplashScreen /> : null;
+  };
+
   render() {
     const { navigation } = this.props;
     return (
@@ -140,6 +144,7 @@ export default class HomeScreen extends Component {
             onEndReached={() => {
               this.setState({ loading: false });
             }}
+            renderFooter={this.renderFooter()}
           />
           {/*{this.state.loading && <SplashScreen />*/
           /*Splash Screen работает не верно :( */}

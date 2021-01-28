@@ -62,6 +62,10 @@ export default class GalleryScreen extends Component {
     );
   };
 
+  renderFooter = () => {
+    return this.state.loading ? <SplashScreen /> : null;
+  };
+
   render() {
     return (
       <Container style={styles.container}>
@@ -83,8 +87,8 @@ export default class GalleryScreen extends Component {
             onEndReached={() => {
               this.setState({ loading: false });
             }}
+            renderFooter={this.renderFooter()}
           />
-          {/*{this.state.loading && <SplashScreen />}*/}
         </Content>
       </Container>
     );
