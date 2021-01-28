@@ -1,24 +1,27 @@
 import React, { Component } from "react";
-import { StyleSheet, Dimensions, FlatList } from "react-native";
+import { StyleSheet, Dimensions, FlatList, Image } from "react-native";
 import {
   Container,
   Header,
   Content,
   Card,
   CardItem,
-  Body,
   Text,
   Button,
   Label,
+  Right,
+  Body,
+  Left,
+  Title,
 } from "native-base";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import firebase from "../components/firebase/firebase";
 import { CachedImage } from "react-native-img-cache";
-import SplashScreen from "../screens/SplashScreen";
+// import SplashScreen from "../screens/SplashScreen";
 
 const { height } = Dimensions.get("window");
-const { width } = Dimensions.get("window");
+// const { width } = Dimensions.get("window");
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -108,33 +111,40 @@ export default class HomeScreen extends Component {
   render() {
     const { navigation } = this.props;
     return (
-        <Container>
-          <Header style={styles.header}>
-            <Text style={{ color: "black", fontSize: 20 }}>
-              VLADLEN KAVEEV BRAND
-            </Text>
+      <Container>
+        <Header style={styles.header}>
+          <Left />
+          <Body>
+            <Image
+              style={styles.logo}
+              source={require("../../assets/logo.png")}
+            />
+          </Body>
+          <Right>
             <Icon
               name="heart-o"
-              size={27}
+              size={30}
               style={styles.icon}
               onPress={() => {
                 navigation.navigate("Wishlist");
               }}
             />
-          </Header>
-          <Content>
-            <FlatList
-              style={{ width: "100%" }}
-              data={this.state.articles}
-              keyExtractor={(item) => item.key}
-              renderItem={this.renderItem}
-              onEndReached={() => {
-                this.setState({ loading: false });
-              }}
-            />
-            {this.state.loading && <SplashScreen />}
-          </Content>
-        </Container>
+          </Right>
+        </Header>
+        <Content>
+          <FlatList
+            style={{ width: "100%" }}
+            data={this.state.articles}
+            keyExtractor={(item) => item.key}
+            renderItem={this.renderItem}
+            onEndReached={() => {
+              this.setState({ loading: false });
+            }}
+          />
+          {/*{this.state.loading && <SplashScreen />*/
+          /*Splash Screen работает не верно :( */}
+        </Content>
+      </Container>
     );
   }
 }
@@ -144,12 +154,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  title: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "300",
+  },
   header: {
     backgroundColor: "white",
     height: height / 20,
-  },
-  icon: {
-    paddingLeft: width / 10,
+    borderBottomColor: "black",
   },
   text: {
     fontSize: 20,
@@ -165,6 +178,10 @@ const styles = StyleSheet.create({
     height: 350,
     borderRadius: 10,
     overflow: "hidden",
+  },
+  logo: {
+    width: 300,
+    height: 300,
   },
   button: {
     flex: 1,

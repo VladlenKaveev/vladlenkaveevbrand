@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, Dimensions, Image, FlatList } from "react-native";
+import { StyleSheet, Dimensions, FlatList } from "react-native";
 
 import {
   Container,
   Text,
   Button,
-  Label,
   Content,
-  Form,
   Item,
-  Input,
   Card,
-  CardItem,
   Header,
 } from "native-base";
 import firebase from "../components/firebase/firebase";
@@ -88,7 +84,7 @@ export default class GalleryScreen extends Component {
               this.setState({ loading: false });
             }}
           />
-          {this.state.loading && <SplashScreen />}
+          {/*{this.state.loading && <SplashScreen />}*/}
         </Content>
       </Container>
     );

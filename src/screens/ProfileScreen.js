@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { Alert, StyleSheet, Image } from "react-native";
 import {
   Container,
   Text,
@@ -13,6 +13,15 @@ import {
   CardItem,
 } from "native-base";
 import firebase from "../components/firebase/firebase";
+// import PhotoPicker from "../components/PhotoPicker";
+
+const options = {
+  title: "Select Avatar",
+  storageOptions: {
+    skipBackup: true,
+    path: "images",
+  },
+};
 
 export default class ProfileScreen extends Component {
   constructor(props) {
@@ -21,6 +30,7 @@ export default class ProfileScreen extends Component {
       email: "",
       password: "",
       name: "",
+      response: "",
     };
   }
 
@@ -100,6 +110,7 @@ export default class ProfileScreen extends Component {
                 Добро пожаловать, {user.displayName}
               </Text>
             </CardItem>
+            <CardItem>{/*<PhotoPicker />*/}</CardItem>
             <CardItem>
               <Button
                 bordered
@@ -207,5 +218,13 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "black",
+  },
+  image: {
+    marginVertical: 24,
+    alignItems: "center",
+  },
+  response: {
+    marginVertical: 16,
+    marginHorizontal: 8,
   },
 });

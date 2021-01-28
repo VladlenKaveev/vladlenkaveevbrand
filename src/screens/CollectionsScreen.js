@@ -78,7 +78,7 @@ export default class CollectionsScreen extends Component {
               this.setState({ loading: false });
             }}
           />
-          {this.state.loading && <SplashScreen />}
+          {/*{this.state.loading && <SplashScreen />}*/}
         </Content>
       </Container>
     );
