@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, StyleSheet, Image } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import {
   Container,
   Text,
@@ -13,7 +13,6 @@ import {
   CardItem,
 } from "native-base";
 import firebase from "../components/firebase/firebase";
-// import PhotoPicker from "../components/PhotoPicker";
 
 const options = {
   title: "Select Avatar",
@@ -103,14 +102,12 @@ export default class ProfileScreen extends Component {
     return (
       <Container style={styles.container}>
         <Content>
-          <Text style={styles.text}>Профиль</Text>
+          <Label
+            style={{ flex: 1, fontSize: 28, textAlign: "center", padding: 10 }}
+          >
+            {user.displayName}
+          </Label>
           <Card>
-            <CardItem>
-              <Text style={{ fontSize: 18 }}>
-                Добро пожаловать, {user.displayName}
-              </Text>
-            </CardItem>
-            <CardItem>{/*<PhotoPicker />*/}</CardItem>
             <CardItem>
               <Button
                 bordered
@@ -170,7 +167,6 @@ export default class ProfileScreen extends Component {
       .catch(function (error) {
         Alert.alert(error);
       });
-    this.forceUpdate();
   };
 
   signOut = () => {

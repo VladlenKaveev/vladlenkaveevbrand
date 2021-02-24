@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, Dimensions } from "react-native";
 import { Container, Content, Card, CardItem, Button } from "native-base";
 import { CachedImage } from "react-native-img-cache";
-import CardSilder from "react-native-cards-slider";
+import CardSlider from "react-native-cards-slider";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -15,7 +15,6 @@ export default class ArticlesDetails extends Component {
   checkSlider = () => {
     const { route } = this.props;
     const { imgSlider, imgSlider2, imgSlider3, imgSlider4 } = route.params;
-    // var images = [imgSlider, imgSlider2, imgSlider3, imgSlider4];
     if (imgSlider != null) {
       return (
         // <SliderBox
@@ -32,12 +31,12 @@ export default class ArticlesDetails extends Component {
         //   ImageComponentStyle={{ borderRadius: 15, width: "97%", marginTop: 5 }}
         // />
         <Content>
-          <CardSilder style={styles.imageContainer}>
+          <CardSlider style={styles.imageContainer}>
             <CachedImage style={{ height: 700 }} source={{ url: imgSlider }} />
             <CachedImage style={{ height: 500 }} source={{ url: imgSlider2 }} />
             <CachedImage style={{ height: 500 }} source={{ url: imgSlider3 }} />
             <CachedImage style={{ height: 500 }} source={{ url: imgSlider4 }} />
-          </CardSilder>
+          </CardSlider>
         </Content>
       );
     }

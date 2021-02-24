@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { StyleSheet, Dimensions, FlatList } from "react-native";
-
 import {
   Container,
   Text,
@@ -62,9 +61,9 @@ export default class GalleryScreen extends Component {
     );
   };
 
-  renderFooter = () => {
-    return this.state.loading ? <SplashScreen /> : null;
-  };
+  // renderFooter = () => {
+  //   return this.state.loading ? <SplashScreen /> : null;
+  // };
 
   render() {
     return (
@@ -87,7 +86,7 @@ export default class GalleryScreen extends Component {
             onEndReached={() => {
               this.setState({ loading: false });
             }}
-            renderFooter={this.renderFooter()}
+            // renderFooter={this.renderFooter()}
           />
         </Content>
       </Container>
